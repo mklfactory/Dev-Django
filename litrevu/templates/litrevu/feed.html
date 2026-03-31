@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="actions">
+        <a href="{% url 'create_ticket' %}" class="btn">Demander une critique</a>
+        <a href="{% url 'create_review' %}" class="btn">Créer une critique</a>
+    </div>
+
+    <div class="feed">
+        {% for post in posts %}
+            {% if post.content_type == 'TICKET' %}
+                {% include 'partials/ticket_snippet.html' with ticket=post %}
+            {% else %}
+                {% include 'partials/review_snippet.html' with review=post %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
