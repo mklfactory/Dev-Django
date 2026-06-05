@@ -1,8 +1,7 @@
-from django import imports
 from django import forms
 from .models import Ticket, Review, UserFollows
 
-class TicketForm(forms.Model_Form):
+class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ['title', 'description', 'image']
