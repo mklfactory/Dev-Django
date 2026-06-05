@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import CharValue, Value, Q
+from django.db.models import CharField, Value, Q
 from itertools import chain
 from .models import Ticket, Review, UserFollows
 from .forms import TicketForm, ReviewForm, UserFollowsForm
