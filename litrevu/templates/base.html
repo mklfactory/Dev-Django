@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>LITRevu</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'litrevu/style.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'feed' %}">Flux</a>
+        <a href="{% url 'my_posts' %}">Mes posts</a>
+        <a href="{% url 'subscriptions' %}">Abonnements</a>
+        <a href="{% url 'logout' %}">Déconnexion ({{ user.username }})</a>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
