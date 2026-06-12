@@ -1,7 +1,6 @@
 from pathlib import Path
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -84,3 +83,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # ✅ évite un warning
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'feed'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
