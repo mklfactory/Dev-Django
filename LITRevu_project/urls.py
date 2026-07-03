@@ -21,5 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('litrevu.urls')),
+    path('', include('home.urls')),
+    path('', include('authentication.urls')),
+    path('', include('reviews.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # pour servir les médias en dev

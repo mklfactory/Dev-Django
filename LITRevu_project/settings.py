@@ -19,7 +19,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tailwind',
     'theme',
-    'litrevu',  # app ajoutée
+    'litrevu',  # conservée pour l'historique des migrations, voir reviews
+    'authentication',
+    'reviews',
+    'home',
 ]
 
 TAILWIND_APP_NAME = 'theme'
