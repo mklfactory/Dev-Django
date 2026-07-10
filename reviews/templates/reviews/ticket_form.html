@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
-{% block title %}Créer un ticket - LITRevu{% endblock %}
+{% block title %}{% if editing %}Modifier{% else %}Créer{% endif %} un ticket - LITRevu{% endblock %}
 
 {% block content %}
 <div class="max-w-xl mx-auto bg-white rounded-xl shadow p-8 mt-10">
-    <h1 class="text-2xl font-bold mb-6 text-center">Créer un ticket</h1>
+    <h1 class="text-2xl font-bold mb-6 text-center">
+        {% if editing %}Modifier votre ticket{% else %}Créer un ticket{% endif %}
+    </h1>
 
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+
+        {% if editing and ticket.image %}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Image actuelle</label>
+                <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" class="max-h-48 rounded-lg">
+            </div>
+        {% endif %}
 
         {% for field in form %}
             <div class="mb-4">

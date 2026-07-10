@@ -4,12 +4,13 @@ Application web Django permettant de demander et publier des critiques de livres
 
 ## Fonctionnalités
 
-- Inscription / connexion / déconnexion
+- Inscription, connexion (formulaire intégré à la page d'accueil) et déconnexion
 - Création d'un ticket (demande de critique sur un livre ou article, avec image optionnelle)
 - Publication d'une critique en réponse à un ticket existant
 - Création d'un ticket et de sa critique en une seule action
+- Modification et suppression de ses propres tickets et critiques (page « Posts »)
 - Suivi / arrêt du suivi d'autres utilisateurs
-- Feed personnalisé : tickets et critiques de l'utilisateur et de ses abonnements, triés par date
+- Flux personnalisé : tickets et critiques de l'utilisateur et de ses abonnements, triés par date
 
 ## Stack technique
 
@@ -54,8 +55,8 @@ Pendant le développement, `python manage.py tailwind start` recompile le CSS au
 | App | Rôle |
 |---|---|
 | `LITRevu_project/` | Configuration Django (settings, URLs racine) |
-| `authentication/` | Inscription, connexion, déconnexion |
-| `reviews/` | Modèles `Ticket`, `Review`, `UserFollows` ; feed, tickets, critiques, abonnements |
-| `home/` | Redirection de la page d'accueil vers le feed ou la connexion |
-| `theme/` | Configuration Tailwind CSS et template de base (`base.html`) |
+| `authentication/` | Inscription et déconnexion |
+| `reviews/` | Modèles `Ticket`, `Review`, `UserFollows` ; flux, posts, création/édition/suppression, abonnements |
+| `home/` | Page d'accueil : formulaire de connexion et appel à l'inscription pour les visiteurs, redirection vers le flux pour les utilisateurs connectés |
+| `theme/` | Configuration Tailwind CSS, logo et template de base (`base.html`) |
 | `litrevu/` | Ancienne app conservée uniquement pour l'historique des migrations (modèles déplacés vers `reviews`) |

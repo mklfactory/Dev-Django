@@ -24,17 +24,18 @@
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
-        <a href="{% url 'home' %}" class="font-bold text-xl text-blue-600">LITRevu</a>
+    <nav class="bg-white shadow px-6 py-2 flex justify-between items-center">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="LITRevu" class="max-h-[50px] w-auto">
+        </a>
         <div class="flex items-center gap-5">
             {% if user.is_authenticated %}
-                <a href="{% url 'feed' %}" class="text-gray-600 hover:text-blue-600 font-medium">Feed</a>
-                <a href="{% url 'ticket_list' %}" class="text-gray-600 hover:text-blue-600 font-medium">Tickets</a>
+                <a href="{% url 'feed' %}" class="text-gray-600 hover:text-blue-600 font-medium">Flux</a>
+                <a href="{% url 'my_posts' %}" class="text-gray-600 hover:text-blue-600 font-medium">Posts</a>
                 <a href="{% url 'follows' %}" class="text-gray-600 hover:text-blue-600 font-medium">Abonnements</a>
-                <span class="text-gray-500 text-sm border-l border-gray-200 pl-5">👤 {{ user.username }}</span>
-                <a href="{% url 'logout' %}" class="text-red-500 hover:underline font-medium">Déconnexion</a>
+                <a href="{% url 'logout' %}" class="text-red-500 hover:underline font-medium">Se déconnecter</a>
             {% else %}
-                <a href="{% url 'login' %}" class="text-blue-600 hover:underline font-medium">Connexion</a>
+                <a href="{% url 'home' %}" class="text-blue-600 hover:underline font-medium">Connexion</a>
                 <a href="{% url 'register' %}" class="text-green-600 hover:underline font-medium">Inscription</a>
             {% endif %}
         </div>

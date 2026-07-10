@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Feed - LITRevu{% endblock %}
+{% block title %}Flux - LITRevu{% endblock %}
 
 {% block content %}
 <div class="flex justify-between items-center mb-4">
-    <h1 class="text-3xl font-bold">Feed</h1>
+    <h1 class="text-3xl font-bold">Flux</h1>
     <div class="space-x-2">
+        <a href="{% url 'create_ticket' %}"
+           class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 font-semibold">
+            Demander une critique
+        </a>
         <a href="{% url 'create_ticket_review' %}"
            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-semibold">
             Créer une critique
@@ -18,28 +22,51 @@
         {% for item in feed_items %}
             {% if item.ticket %}
                 <div class="bg-white rounded-xl shadow p-6">
-                    <p class="text-sm text-gray-500">{{ item.ticket.title }}</p>
-                    <h2 class="text-xl font-bold">{{ item.headline }}</h2>
+                    <div class="flex justify-between items-start">
+                        <p class="text-sm text-gray-500">
+                            {% if item.user == user %}Vous avez{% else %}{{ item.user.username }} a{% endif %}
+                            publié une critique
+                        </p>
+                        <p class="text-xs text-gray-400 whitespace-nowrap ml-4">
+                            {{ item.time_created|date:"H:i, d F Y" }}
+                        </p>
+                    </div>
+                    <h2 class="text-xl font-bold mt-1">{{ item.headline }}</h2>
                     <p class="text-yellow-500">{{ item.rating }}/5</p>
                     <p class="text-gray-700 mt-2">{{ item.body }}</p>
-                    <p class="text-sm text-gray-500 mt-2">
-                        par {{ item.user.username }} le {{ item.time_created|date:"d/m/Y H:i" }}
-                    </p>
+
+                    <div class="border border-gray-200 rounded-lg p-4 mt-4">
+                        <p class="text-sm text-gray-500">
+                            Ticket - {% if item.ticket.user == user %}Vous{% else %}{{ item.ticket.user.username }}{% endif %}
+                        </p>
+                        <p class="font-bold mt-1">{{ item.ticket.title }}</p>
+                        {% if item.ticket.image %}
+                            <img src="{{ item.ticket.image.url }}" alt="{{ item.ticket.title }}" class="max-h-40 rounded-lg mt-3">
+                        {% endif %}
+                    </div>
                 </div>
             {% else %}
                 <div class="bg-white rounded-xl shadow p-6 flex justify-between items-start">
                     <div>
-                        <p class="text-sm text-gray-500">Ticket</p>
-                        <h2 class="text-xl font-bold">{{ item.title }}</h2>
+                        <div class="flex justify-between items-start">
+                            <p class="text-sm text-gray-500">
+                                {% if item.user == user %}Vous avez{% else %}{{ item.user.username }} a{% endif %}
+                                demandé une critique
+                            </p>
+                            <p class="text-xs text-gray-400 whitespace-nowrap ml-4">
+                                {{ item.time_created|date:"H:i, d F Y" }}
+                            </p>
+                        </div>
+                        <p class="font-bold mt-1">{{ item.title }}</p>
                         <p class="text-gray-700 mt-2">{{ item.description }}</p>
-                        <p class="text-sm text-gray-500 mt-2">
-                            par {{ item.user.username }} le {{ item.time_created|date:"d/m/Y H:i" }}
-                        </p>
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}" class="max-h-40 rounded-lg mt-3">
+                        {% endif %}
                     </div>
                     {% if item.user != user %}
                         <a href="{% url 'create_review' item.id %}"
                            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-semibold whitespace-nowrap ml-4">
-                            Écrire une critique
+                            Créer une critique
                         </a>
                     {% endif %}
                 </div>

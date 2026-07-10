@@ -32,13 +32,16 @@ def feed(request):
 
 
 @login_required
-def ticket_list(request):
-    tickets = (
-        Ticket.objects.select_related('user')
-        .prefetch_related('reviews')
-        .order_by('-time_created')
+def my_posts(request):
+    tickets = Ticket.objects.filter(user=request.user)
+    reviews = Review.objects.filter(user=request.user).select_related('ticket')
+
+    posts = sorted(
+        chain(tickets, reviews),
+        key=lambda item: item.time_created,
+        reverse=True,
     )
-    return render(request, 'reviews/ticket_list.html', {'tickets': tickets})
+    return render(request, 'reviews/my_posts.html', {'posts': posts})
 
 
 @login_required
@@ -50,9 +53,33 @@ def create_ticket(request):
             ticket = form.save(commit=False)
             ticket.user = request.user
             ticket.save()
-            return redirect('ticket_list')
+            return redirect('my_posts')
 
     return render(request, 'reviews/ticket_form.html', {'form': form})
+
+
+@login_required
+def edit_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, pk=ticket_id, user=request.user)
+    form = TicketForm(instance=ticket)
+    if request.method == 'POST':
+        form = TicketForm(request.POST, request.FILES, instance=ticket)
+        if form.is_valid():
+            form.save()
+            return redirect('my_posts')
+
+    return render(request, 'reviews/ticket_form.html', {
+        'form': form,
+        'ticket': ticket,
+        'editing': True,
+    })
+
+
+@require_POST
+@login_required
+def delete_ticket(request, ticket_id):
+    Ticket.objects.filter(pk=ticket_id, user=request.user).delete()
+    return redirect('my_posts')
 
 
 @login_required
@@ -61,7 +88,7 @@ def create_review(request, ticket_id):
 
     if ticket.reviews.exists():
         messages.info(request, "Ce ticket a déjà une critique.")
-        return redirect('ticket_list')
+        return redirect('feed')
 
     form = ReviewForm()
     if request.method == 'POST':
@@ -77,6 +104,32 @@ def create_review(request, ticket_id):
         'form': form,
         'ticket': ticket,
     })
+
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(
+        Review.objects.select_related('ticket'), pk=review_id, user=request.user
+    )
+    form = ReviewForm(instance=review)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect('my_posts')
+
+    return render(request, 'reviews/review_only_form.html', {
+        'form': form,
+        'ticket': review.ticket,
+        'editing': True,
+    })
+
+
+@require_POST
+@login_required
+def delete_review(request, review_id):
+    Review.objects.filter(pk=review_id, user=request.user).delete()
+    return redirect('my_posts')
 
 
 @login_required
