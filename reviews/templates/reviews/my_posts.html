@@ -12,12 +12,12 @@
                 <div class="bg-white rounded-xl shadow p-6">
                     <div class="flex justify-between items-start">
                         <p class="text-sm text-gray-500">Vous avez publié une critique</p>
-                        <p class="text-xs text-gray-400 whitespace-nowrap ml-4">
+                        <p class="text-xs text-gray-600 whitespace-nowrap ml-4">
                             {{ post.time_created|date:"H:i, d F Y" }}
                         </p>
                     </div>
                     <h2 class="text-xl font-bold mt-1">{{ post.headline }}</h2>
-                    <p class="text-yellow-500">{{ post.rating }}/5</p>
+                    <p class="text-yellow-700">{{ post.rating }}/5</p>
                     <p class="text-gray-700 mt-2">{{ post.body }}</p>
 
                     <div class="border border-gray-200 rounded-lg p-4 mt-4">
@@ -46,7 +46,7 @@
                 <div class="bg-white rounded-xl shadow p-6">
                     <div class="flex justify-between items-start">
                         <p class="text-sm text-gray-500">Vous avez publié un ticket</p>
-                        <p class="text-xs text-gray-400 whitespace-nowrap ml-4">
+                        <p class="text-xs text-gray-600 whitespace-nowrap ml-4">
                             {{ post.time_created|date:"H:i, d F Y" }}
                         </p>
                     </div>
