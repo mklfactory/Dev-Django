@@ -15,6 +15,7 @@
             <span class="text-gray-600 mr-4">👤 {{ user.username }}</span>
             <a href="{% url 'feed' %}" class="text-gray-600 hover:text-blue-600 mr-4">Feed</a>
             <a href="{% url 'ticket_list' %}" class="text-gray-600 hover:text-blue-600 mr-4">Tickets</a>
+            <a href="{% url 'follows' %}" class="text-gray-600 hover:text-blue-600 mr-4">Abonnements</a>
             <a href="{% url 'logout' %}" class="text-red-500 hover:underline">Déconnexion</a>
         {% else %}
             <a href="{% url 'login' %}" class="text-blue-600 hover:underline mr-4">Connexion</a>

@@ -15,4 +15,10 @@ urlpatterns = [
         views.create_ticket_review,
         name='create_ticket_review',
     ),
+    path('follows/', views.follows, name='follows'),
+    path(
+        'follows/<int:user_id>/remove/',
+        views.unfollow,
+        name='unfollow',
+    ),
 ]

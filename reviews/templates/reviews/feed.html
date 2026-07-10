@@ -6,7 +6,6 @@
 <div class="flex justify-between items-center mb-4">
     <h1 class="text-3xl font-bold">Feed</h1>
     <div class="space-x-2">
-       
         <a href="{% url 'create_ticket_review' %}"
            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-semibold">
             Créer une critique
@@ -14,19 +13,42 @@
     </div>
 </div>
 
-{% if reviews %}
+{% if feed_items %}
     <div class="space-y-4">
-        {% for review in reviews %}
-            <div class="bg-white rounded-xl shadow p-6">
-                <p class="text-sm text-gray-500">{{ review.ticket.title }}</p>
-                <h2 class="text-xl font-bold">{{ review.headline }}</h2>
-                <p class="text-yellow-500">{{ review.rating }}/5</p>
-                <p class="text-gray-700 mt-2">{{ review.body }}</p>
-                <p class="text-sm text-gray-500 mt-2">par {{ review.user.username }} le {{ review.time_created|date:"d/m/Y H:i" }}</p>
-            </div>
+        {% for item in feed_items %}
+            {% if item.ticket %}
+                <div class="bg-white rounded-xl shadow p-6">
+                    <p class="text-sm text-gray-500">{{ item.ticket.title }}</p>
+                    <h2 class="text-xl font-bold">{{ item.headline }}</h2>
+                    <p class="text-yellow-500">{{ item.rating }}/5</p>
+                    <p class="text-gray-700 mt-2">{{ item.body }}</p>
+                    <p class="text-sm text-gray-500 mt-2">
+                        par {{ item.user.username }} le {{ item.time_created|date:"d/m/Y H:i" }}
+                    </p>
+                </div>
+            {% else %}
+                <div class="bg-white rounded-xl shadow p-6 flex justify-between items-start">
+                    <div>
+                        <p class="text-sm text-gray-500">Ticket</p>
+                        <h2 class="text-xl font-bold">{{ item.title }}</h2>
+                        <p class="text-gray-700 mt-2">{{ item.description }}</p>
+                        <p class="text-sm text-gray-500 mt-2">
+                            par {{ item.user.username }} le {{ item.time_created|date:"d/m/Y H:i" }}
+                        </p>
+                    </div>
+                    {% if item.user != user %}
+                        <a href="{% url 'create_review' item.id %}"
+                           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-semibold whitespace-nowrap ml-4">
+                            Écrire une critique
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% else %}
-    <p class="text-gray-600">Les dernières critiques apparaîtront ici.</p>
+    <p class="text-gray-600">
+        Suis des utilisateurs pour voir leurs tickets et critiques ici.
+    </p>
 {% endif %}
 {% endblock %}
