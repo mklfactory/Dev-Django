@@ -1,62 +1,62 @@
 # LITRevu
 
-Application web Django permettant de demander et publier des critiques de livres/articles entre utilisateurs abonnés les uns aux autres.
+Django web application for requesting and publishing book/article reviews between users who follow each other.
 
-## Fonctionnalités
+## Features
 
-- Inscription, connexion (formulaire intégré à la page d'accueil) et déconnexion
-- Création d'un ticket (demande de critique sur un livre ou article, avec image optionnelle)
-- Publication d'une critique en réponse à un ticket existant
-- Création d'un ticket et de sa critique en une seule action
-- Modification et suppression de ses propres tickets et critiques (page « Posts »)
-- Suivi / arrêt du suivi d'autres utilisateurs
-- Flux personnalisé : tickets et critiques de l'utilisateur et de ses abonnements, triés par date
+- Registration, login (form built into the home page) and logout
+- Create a ticket (request a review for a book or article, with an optional image)
+- Publish a review in response to an existing ticket
+- Create a ticket and its review in a single action
+- Edit and delete your own tickets and reviews (« Posts » page)
+- Follow / unfollow other users
+- Personalized feed: tickets and reviews from the user and the people they follow, sorted by date
 
-## Stack technique
+## Tech stack
 
 - Python 3.14, Django 6
-- Base de données SQLite (par défaut)
-- Tailwind CSS 4 via [django-tailwind](https://github.com/timonweb/django-tailwind) (compilation autonome, sans Node requis)
+- SQLite database (default)
+- Tailwind CSS 4 via [django-tailwind](https://github.com/timonweb/django-tailwind) (standalone build, no Node required)
 
 ## Installation
 
 ```bash
-# 1. Cloner le dépôt puis se placer dedans
-git clone <url-du-repo>
+# 1. Clone the repository and move into it
+git clone <repo-url>
 cd Dev-Django
 
-# 2. Créer et activer un environnement virtuel
+# 2. Create and activate a virtual environment
 python -m venv .venv
 .venv\Scripts\activate      # Windows
 source .venv/bin/activate   # macOS / Linux
 
-# 3. Installer les dépendances Python
+# 3. Install Python dependencies
 pip install -r requirements.txt
 
-# 4. Appliquer les migrations
+# 4. Apply migrations
 python manage.py migrate
 
-# 5. (optionnel) créer un compte administrateur
+# 5. (optional) create an admin account
 python manage.py createsuperuser
 
-# 6. Compiler le CSS Tailwind
+# 6. Build the Tailwind CSS
 python manage.py tailwind build
 
-# 7. Lancer le serveur de développement
+# 7. Run the development server
 python manage.py runserver
 ```
 
-L'application est ensuite accessible sur http://127.0.0.1:8000.
+The application is then available at <http://127.0.0.1:8000>.
 
-Pendant le développement, `python manage.py tailwind start` recompile le CSS automatiquement à chaque changement des templates.
+During development, `python manage.py tailwind start` recompiles the CSS automatically whenever templates change.
 
-## Structure du projet
+## Project structure
 
-| App | Rôle |
-|---|---|
-| `LITRevu_project/` | Configuration Django (settings, URLs racine) |
-| `authentication/` | Inscription et déconnexion |
-| `reviews/` | Modèles `Ticket`, `Review`, `UserFollows` ; flux, posts, création/édition/suppression, abonnements |
-| `home/` | Page d'accueil : formulaire de connexion et appel à l'inscription pour les visiteurs, redirection vers le flux pour les utilisateurs connectés |
-| `theme/` | Configuration Tailwind CSS, logo et template de base (`base.html`) |
-| `litrevu/` | Ancienne app conservée uniquement pour l'historique des migrations (modèles déplacés vers `reviews`) |
+| App | Role |
+| --- | --- |
+| `LITRevu_project/` | Django configuration (settings, root URLs) |
+| `authentication/` | Registration and logout |
+| `reviews/` | `Ticket`, `Review`, `UserFollows` models; feed, posts, create/edit/delete, follows |
+| `home/` | Home page: login form and registration call-to-action for visitors, redirect to the feed for logged-in users |
+| `theme/` | Tailwind CSS configuration, logo and base template (`base.html`) |
+| `litrevu/` | Legacy app kept only for migration history (models moved to `reviews`) |
