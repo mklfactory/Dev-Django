@@ -6,23 +6,39 @@
     <title>{% block title %}LITRevu{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+    <style>
+        /* Django rend les RadioSelect en <ul> nues (ex: la note d'une critique) */
+        form ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0;
+        }
+        form ul li label {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <nav class="bg-white shadow p-4 flex justify-between items-center">
-    <a href="{% url 'home' %}" class="font-bold text-xl text-blue-600">LITRevu</a>
-    <div>
-        {% if user.is_authenticated %}
-            <span class="text-gray-600 mr-4">👤 {{ user.username }}</span>
-            <a href="{% url 'feed' %}" class="text-gray-600 hover:text-blue-600 mr-4">Feed</a>
-            <a href="{% url 'ticket_list' %}" class="text-gray-600 hover:text-blue-600 mr-4">Tickets</a>
-            <a href="{% url 'follows' %}" class="text-gray-600 hover:text-blue-600 mr-4">Abonnements</a>
-            <a href="{% url 'logout' %}" class="text-red-500 hover:underline">Déconnexion</a>
-        {% else %}
-            <a href="{% url 'login' %}" class="text-blue-600 hover:underline mr-4">Connexion</a>
-            <a href="{% url 'register' %}" class="text-green-600 hover:underline">Inscription</a>
-        {% endif %}
-    </div>
-</nav>
+    <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
+        <a href="{% url 'home' %}" class="font-bold text-xl text-blue-600">LITRevu</a>
+        <div class="flex items-center gap-5">
+            {% if user.is_authenticated %}
+                <a href="{% url 'feed' %}" class="text-gray-600 hover:text-blue-600 font-medium">Feed</a>
+                <a href="{% url 'ticket_list' %}" class="text-gray-600 hover:text-blue-600 font-medium">Tickets</a>
+                <a href="{% url 'follows' %}" class="text-gray-600 hover:text-blue-600 font-medium">Abonnements</a>
+                <span class="text-gray-500 text-sm border-l border-gray-200 pl-5">👤 {{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="text-red-500 hover:underline font-medium">Déconnexion</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-blue-600 hover:underline font-medium">Connexion</a>
+                <a href="{% url 'register' %}" class="text-green-600 hover:underline font-medium">Inscription</a>
+            {% endif %}
+        </div>
+    </nav>
 
     <main class="container mx-auto p-6">
         {% block content %}{% endblock %}

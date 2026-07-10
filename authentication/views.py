@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .forms import StyledAuthenticationForm, StyledUserCreationForm
 
 
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('feed')
 
-    form = AuthenticationForm()
+    form = StyledAuthenticationForm()
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = StyledAuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
@@ -22,9 +22,9 @@ def register_view(request):
     if request.user.is_authenticated:
         return redirect('feed')
 
-    form = UserCreationForm()
+    form = StyledUserCreationForm()
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = StyledUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
