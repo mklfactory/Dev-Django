@@ -4,7 +4,7 @@
 {% block content %}
 <h1 class="text-3xl font-bold mb-6">Abonnements</h1>
 
-<div class="bg-white rounded-xl shadow p-6 mb-6 max-w-md">
+<div class="bg-white rounded-xl shadow p-4 sm:p-6 mb-6 max-w-md">
     <h2 class="text-lg font-semibold mb-4">Suivre un utilisateur</h2>
     <form method="POST" class="flex items-start gap-2">
         {% csrf_token %}
@@ -23,7 +23,7 @@
 </div>
 
 <div class="grid md:grid-cols-2 gap-6">
-    <div class="bg-white rounded-xl shadow p-6">
+    <div class="bg-white rounded-xl shadow p-4 sm:p-6">
         <h2 class="text-lg font-semibold mb-4">Mes abonnements</h2>
         {% if following %}
             <ul class="space-y-2">
@@ -44,7 +44,7 @@
         {% endif %}
     </div>
 
-    <div class="bg-white rounded-xl shadow p-6">
+    <div class="bg-white rounded-xl shadow p-4 sm:p-6">
         <h2 class="text-lg font-semibold mb-4">Mes abonnés</h2>
         {% if followers %}
             <ul class="space-y-2">

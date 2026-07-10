@@ -9,10 +9,10 @@
     <div class="space-y-4">
         {% for post in posts %}
             {% if post.ticket %}
-                <div class="bg-white rounded-xl shadow p-6">
-                    <div class="flex justify-between items-start">
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6">
+                    <div class="flex flex-wrap justify-between items-start gap-2">
                         <p class="text-sm text-gray-500">Vous avez publié une critique</p>
-                        <p class="text-xs text-gray-600 whitespace-nowrap ml-4">
+                        <p class="text-xs text-gray-600 whitespace-nowrap">
                             {{ post.time_created|date:"H:i, d F Y" }}
                         </p>
                     </div>
@@ -24,11 +24,11 @@
                         <p class="text-sm text-gray-500">Ticket - Vous</p>
                         <p class="font-bold mt-1">{{ post.ticket.title }}</p>
                         {% if post.ticket.image %}
-                            <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}" class="max-h-32 rounded-lg mt-3">
+                            <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}" class="max-h-32 max-w-full rounded-lg mt-3">
                         {% endif %}
                     </div>
 
-                    <div class="flex gap-3 mt-4">
+                    <div class="flex flex-wrap gap-3 mt-4">
                         <a href="{% url 'edit_review' post.id %}"
                            class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 text-sm font-semibold">
                             Modifier
@@ -43,20 +43,20 @@
                     </div>
                 </div>
             {% else %}
-                <div class="bg-white rounded-xl shadow p-6">
-                    <div class="flex justify-between items-start">
+                <div class="bg-white rounded-xl shadow p-4 sm:p-6">
+                    <div class="flex flex-wrap justify-between items-start gap-2">
                         <p class="text-sm text-gray-500">Vous avez publié un ticket</p>
-                        <p class="text-xs text-gray-600 whitespace-nowrap ml-4">
+                        <p class="text-xs text-gray-600 whitespace-nowrap">
                             {{ post.time_created|date:"H:i, d F Y" }}
                         </p>
                     </div>
                     <h2 class="text-xl font-bold mt-1">{{ post.title }}</h2>
                     <p class="text-gray-700 mt-2">{{ post.description }}</p>
                     {% if post.image %}
-                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="max-h-40 rounded-lg mt-3">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="max-h-40 max-w-full rounded-lg mt-3">
                     {% endif %}
 
-                    <div class="flex gap-3 mt-4">
+                    <div class="flex flex-wrap gap-3 mt-4">
                         <a href="{% url 'edit_ticket' post.id %}"
                            class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 text-sm font-semibold">
                             Modifier
