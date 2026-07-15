@@ -152,6 +152,7 @@ def delete_review(request, review_id):
 
 @login_required
 def create_ticket_review(request):
+    """Create a ticket and its review together in a single submission."""
     ticket_form = TicketForm()
     review_form = ReviewForm()
     if request.method == "POST":
@@ -181,6 +182,7 @@ def create_ticket_review(request):
 
 @login_required
 def follows(request):
+    """Follow a new user and list the current follow relationships."""
     form = FollowUserForm(current_user=request.user)
     if request.method == "POST":
         form = FollowUserForm(request.POST, current_user=request.user)
@@ -208,5 +210,6 @@ def follows(request):
 @require_POST
 @login_required
 def unfollow(request, user_id):
+    """Stop following the given user."""
     UserFollows.objects.filter(user=request.user, followed_user_id=user_id).delete()
     return redirect("follows")

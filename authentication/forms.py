@@ -1,3 +1,5 @@
+"""Authentication forms styled with the project's Tailwind input classes."""
+
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 INPUT_CLASSES = (
@@ -7,6 +9,8 @@ INPUT_CLASSES = (
 
 
 class StyledAuthenticationForm(AuthenticationForm):
+    """Login form with Tailwind classes applied to every field widget."""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
@@ -14,6 +18,8 @@ class StyledAuthenticationForm(AuthenticationForm):
 
 
 class StyledUserCreationForm(UserCreationForm):
+    """Registration form with Tailwind classes applied to every field widget."""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
