@@ -5,13 +5,13 @@ from authentication.forms import StyledAuthenticationForm
 
 def home(request):
     if request.user.is_authenticated:
-        return redirect('feed')
+        return redirect("feed")
 
     form = StyledAuthenticationForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         form = StyledAuthenticationForm(data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('feed')
+            return redirect("feed")
 
-    return render(request, 'home/home.html', {'form': form})
+    return render(request, "home/home.html", {"form": form})

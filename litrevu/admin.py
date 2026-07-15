@@ -1,1 +1,1 @@
-from django.contrib import admin
+# Legacy app: models were moved to `reviews`, no admin registrations here.
